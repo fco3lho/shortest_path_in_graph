@@ -7,14 +7,14 @@ def heuristic_manhattan(node, goal):
 def heuristic_euclidean(node, goal):
     return (node - goal) ** 2
 
-def a_star_search(G, start, goal):
+def a_star_search(G, start, goal, heuristic):
     # Inicialização
     open_set = [(0, start)]
     came_from = {}
     g_score = {node: float('inf') for node in G.nodes()}
     g_score[start] = 0
     f_score = {node: float('inf') for node in G.nodes()}
-    f_score[start] = heuristic_manhattan(start, goal)
+    f_score[start] = heuristic(start, goal)
 
     while open_set:
         _, current = heapq.heappop(open_set)
@@ -28,7 +28,7 @@ def a_star_search(G, start, goal):
             if tentative_g_score < g_score[neighbor]:
                 came_from[neighbor] = current
                 g_score[neighbor] = tentative_g_score
-                f_score[neighbor] = tentative_g_score + heuristic_manhattan(neighbor, goal)
+                f_score[neighbor] = tentative_g_score + heuristic(neighbor, goal)
                 heapq.heappush(open_set, (f_score[neighbor], neighbor))
 
     return None  # Retorna None se não encontrar um caminho
