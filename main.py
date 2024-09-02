@@ -1,5 +1,8 @@
 import os
 
+import time
+import tracemalloc
+
 from create_graph import create_random_graph
 from a_star import a_star_search, heuristic_euclidean, heuristic_manhattan
 from bfs_search import bfs_search
@@ -35,16 +38,104 @@ while True:
     opt = int(input("Digite sua opção: "))
 
     if opt == 1:
+        # Inicia contagem de tempo
+        start_time = time.time()
+        
+        # Inicia contagem de consumo de memória
+        tracemalloc.start()
+        start_snapshot = tracemalloc.take_snapshot()
+
+        ##### Executa BFS
         path = bfs_search(G, start_node, goal_node)
+
+        # Termina contagem de tempo
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+
+        # Termina a contagem de consumo de memória
+        end_snapshot = tracemalloc.take_snapshot()
+        tracemalloc.stop()
+
+        memory_diff = end_snapshot.compare_to(start_snapshot, 'lineno')
+        total_memory = sum(stat.size for stat in memory_diff)
+
+        print("Tempo de execução em segundos:", elapsed_time)
+        print("Consumo de memória por número de alocações:", total_memory)
     
     if opt == 2:
+        # Inicia contagem de tempo
+        start_time = time.time()
+        
+        # Inicia contagem de consumo de memória
+        tracemalloc.start()
+        start_snapshot = tracemalloc.take_snapshot()
+
+        ##### Executa DFS
         path = dfs_search(G, start_node, goal_node)
 
+        # Termina contagem de tempo
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+
+        # Termina a contagem de consumo de memória
+        end_snapshot = tracemalloc.take_snapshot()
+        tracemalloc.stop()
+
+        memory_diff = end_snapshot.compare_to(start_snapshot, 'lineno')
+        total_memory = sum(stat.size for stat in memory_diff)
+
+        print("Tempo de execução em segundos:", elapsed_time)
+        print("Consumo de memória por número de alocações:", total_memory)
+
     if opt == 3:
+        # Inicia contagem de tempo
+        start_time = time.time()
+        
+        # Inicia contagem de consumo de memória
+        tracemalloc.start()
+        start_snapshot = tracemalloc.take_snapshot()
+
+        ##### Executa A* Manhattan
         path = a_star_search(G, start_node, goal_node, heuristic_manhattan)
 
+        # Termina contagem de tempo
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+
+        # Termina a contagem de consumo de memória
+        end_snapshot = tracemalloc.take_snapshot()
+        tracemalloc.stop()
+
+        memory_diff = end_snapshot.compare_to(start_snapshot, 'lineno')
+        total_memory = sum(stat.size for stat in memory_diff)
+
+        print("Tempo de execução em segundos:", elapsed_time)
+        print("Consumo de memória por número de alocações:", total_memory)
+
     if opt == 4:
+        # Inicia contagem de tempo
+        start_time = time.time()
+        
+        # Inicia contagem de consumo de memória
+        tracemalloc.start()
+        start_snapshot = tracemalloc.take_snapshot()
+
+        ##### Executa A* Euclidean
         path = a_star_search(G, start_node, goal_node, heuristic_euclidean)
+
+        # Termina contagem de tempo
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+
+        # Termina a contagem de consumo de memória
+        end_snapshot = tracemalloc.take_snapshot()
+        tracemalloc.stop()
+
+        memory_diff = end_snapshot.compare_to(start_snapshot, 'lineno')
+        total_memory = sum(stat.size for stat in memory_diff)
+
+        print("Tempo de execução em segundos:", elapsed_time)
+        print("Consumo de memória por número de alocações:", total_memory)
 
     # Visualizando o grafo e o caminho encontrado
     if path:
