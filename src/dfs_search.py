@@ -4,10 +4,12 @@ def dfs_search(G, start, goal):
     stack = [start]
     came_from = {}
     visited = set()
+    distance = {start: 0}
 
     while stack:
         current = stack.pop()
         if current == goal:
+            print(f"\nDistância percorrida: {distance[goal]}")
             return reconstruct_path(came_from, current)
         
         if current not in visited:
@@ -16,5 +18,7 @@ def dfs_search(G, start, goal):
                 if neighbor not in visited:
                     came_from[neighbor] = current
                     stack.append(neighbor)
+                    edge_weight = G[current][neighbor]['weight']
+                    distance[neighbor] = distance[current] + edge_weight
                     
     return None

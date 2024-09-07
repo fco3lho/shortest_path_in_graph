@@ -58,6 +58,7 @@ def a_star_search(G, start, goal, heuristic):
         _, current = heapq.heappop(open_set) # Retira o nó com o menor f_score da fila de prioridade
         
         if current == goal: # Se o nó atual é o objetivo, retorna o caminho encontrado
+            print(f"\nDistância percorrida: {g_score[current]}")
             return reconstruct_path(came_from, current)
 
         for neighbor in G.neighbors(current): # Para cada vizinho do nó atual
@@ -76,28 +77,27 @@ def a_star_search(G, start, goal, heuristic):
 
 ```python
 def bfs_search(G, start, goal):
-    # Fila para armazenar os nós a serem explorados (FIFO)
-    queue = deque([start])
-    # Dicionário para armazenar o caminho de volta de cada nó até o início
-    came_from = {start: None}
+    queue = deque([start]) # Fila para armazenar os nós a serem explorados (FIFO)
+    came_from = {start: None} # Dicionário para armazenar o caminho de volta de cada nó até o início
+    distance = {start: 0} # Contador de distância percorrida
     
     while queue:
-        # Extrair o nó atual da fila
-        current_node = queue.popleft()
+        current_node = queue.popleft() # Extrair o nó atual da fila
         
-        # Se o nó atual for o objetivo, reconstruir o caminho e retorná-lo
-        if current_node == goal:
+        if current_node == goal: # Se o nó atual for o objetivo, reconstruir o caminho e retorná-lo
             path = []
+            print(f"Distância percorrida: {distance[goal]}")
             while current_node is not None:
                 path.append(current_node)
                 current_node = came_from[current_node]
             return path[::-1]  # Retorna o caminho na ordem correta (do início ao objetivo)
         
-        # Expandir os nós vizinhos do nó atual
-        for neighbor in G.neighbors(current_node):
+        for neighbor in G.neighbors(current_node): # Expandir os nós vizinhos do nó atual
             if neighbor not in came_from:  # Se o vizinho ainda não foi visitado
                 queue.append(neighbor)  # Adicionar o vizinho à fila
                 came_from[neighbor] = current_node  # Registrar o caminho de volta
+                edge_weight = G[current_node][neighbor]['weight'] # Peso da aresta atual
+                distance[neighbor] = distance[current_node] + edge_weight # Soma ao contador
     
     return None  # Se a fila esvaziar e o objetivo não for encontrado, retorna None
 ```
@@ -109,10 +109,12 @@ def dfs_search(G, start, goal):
     stack = [start]  # Inicializa a pilha com o nó inicial
     came_from = {}  # Dicionário para registrar de onde veio cada nó
     visited = set() # Conjunto de nós já visitados
+    distance = {start: 0} # Contador de distância percorrida
 
     while stack:  # Enquanto houver nós na pilha para serem explorados
         current = stack.pop() # Remove o nó do topo da pilha para ser o nó atual
         if current == goal:  # Verifica se o nó atual é o objetivo
+            print(f"Distância percorrida: {distance[goal]}")
             return reconstruct_path(came_from, current) # Reconstrói o caminho até o objetivo
         
         if current not in visited: # Se o nó ainda não foi visitado
@@ -121,6 +123,8 @@ def dfs_search(G, start, goal):
                 if neighbor not in visited: # Se o vizinho ainda não foi visitado
                     came_from[neighbor] = current # Marca que chegamos no vizinho a partir do nó atual
                     stack.append(neighbor) # Adiciona o vizinho na pilha para ser explorado
+                    edge_weight = G[current_node][neighbor]['weight'] # Peso da aresta atual
+                    distance[neighbor] = distance[current_node] + edge_weight # Soma ao contador
                     
     return None # Se não encontrou o objetivo, retorna None
 ```
