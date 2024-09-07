@@ -5,7 +5,7 @@ def heuristic_manhattan(node, goal):
     return abs(node - goal)
 
 def heuristic_euclidean(node, goal):
-    return (node + goal) ** 2
+    return (node - goal) ** 2
 
 def a_star_search(G, start, goal, heuristic):
     open_set = [(0, start)]
