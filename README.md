@@ -36,23 +36,27 @@ def create_random_graph(num_nodes, prob_edge, min_weight=1, max_weight=10):
 5. Caso as opções de **A-estrela** sejam escolhidas, as heurísticas são definidas com bases nas funções abaixo:
 
 ```python
-def heuristic_manhattan_adapted(node, goal):
-        return abs(node - goal)
+def heuristic_manhattan(pos, node, goal):
+    x1, y1 = pos[node] # Pega as coordenadas x e y do nó inicial
+    x2, y2 = pos[goal] # Pega as coordenadas x e y do nó final
+    return abs(x1 - x2) + abs(y1 - y2)
 
-def heuristic_euclidean_adapted(node, goal):
-        return (node - goal) ** 2
+def heuristic_euclidean(pos, node, goal):
+    x1, y1 = pos[node] # Pega as coordenadas x e y do nó inicial
+    x2, y2 = pos[goal] # Pega as coordenadas x e y do nó final
+    return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 ```
 
 6. A função que executa o algoritmo A* é a seguinte abaixo:
 
 ```python
-def a_star_search(G, start, goal, heuristic):
+def a_star_search(G, start, goal, pos, heuristic):
     open_set = [(0, start)] # Fila de prioridade contendo o custo estimado (f_score) e o nó
     came_from = {} # Dicionário para armazenar o caminho
     g_score = {node: float('inf') for node in G.nodes()} # Custo acumulado para chegar a cada nó
     g_score[start] = 0 # Custo para chegar ao nó inicial é zero
     f_score = {node: float('inf') for node in G.nodes()} # Custo estimado total para chegar ao objetivo
-    f_score[start] = heuristic(start, goal) # Estima o custo inicial (heurística) do nó inicial ao objetivo
+    f_score[start] = heuristic(pos, start, goal) # Estima o custo inicial (heurística) do nó inicial ao objetivo
 
     while open_set: # Enquanto houver nós para explorar
         _, current = heapq.heappop(open_set) # Retira o nó com o menor f_score da fila de prioridade
@@ -67,7 +71,7 @@ def a_star_search(G, start, goal, heuristic):
             if tentative_g_score < g_score[neighbor]: # Se o custo acumulado atual for menor
                 came_from[neighbor] = current # Atualiza o caminho
                 g_score[neighbor] = tentative_g_score # Atualiza o g_score
-                f_score[neighbor] = tentative_g_score + heuristic(neighbor, goal) # Atualiza o f_score (g_score + heurística)
+                f_score[neighbor] = tentative_g_score + heuristic(pos, neighbor, goal) # Atualiza o f_score (g_score + heurística)
                 heapq.heappush(open_set, (f_score[neighbor], neighbor)) # Adiciona o vizinho na fila de prioridade
 
     return None # Retorna None se não encontrar um caminho
