@@ -18,7 +18,6 @@ def a_star_search(G, start, goal, pos, heuristic):
     g_score = {node: float('inf') for node in G.nodes()}
     g_score[start] = 0
     f_score = {node: float('inf') for node in G.nodes()}
-    print(f"Start: {pos[start]}")
     f_score[start] = heuristic(pos, start, goal)
 
     while open_set:
