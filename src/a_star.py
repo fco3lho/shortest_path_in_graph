@@ -1,10 +1,10 @@
 from reconstruct_path import reconstruct_path
 import heapq
 
-def heuristic_manhattan(node, goal):
+def heuristic_manhattan_adapted(node, goal):
     return abs(node - goal)
 
-def heuristic_euclidean(node, goal):
+def heuristic_euclidean_adapted(node, goal):
     return (node - goal) ** 2
 
 def a_star_search(G, start, goal, heuristic):

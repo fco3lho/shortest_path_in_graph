@@ -4,8 +4,8 @@ import time
 
 from create_graph import create_random_graph
 from a_star import a_star_search
-from a_star import heuristic_euclidean
-from a_star import heuristic_manhattan
+from a_star import heuristic_euclidean_adapted
+from a_star import heuristic_manhattan_adapted
 from bfs_search import bfs_search
 from dfs_search import dfs_search
 from visualize_graph import visualize_graph
@@ -69,7 +69,7 @@ while True:
         start_time = time.time()
 
         ##### Executa A* Manhattan
-        path = a_star_search(G, start_node, goal_node, heuristic_manhattan)
+        path = a_star_search(G, start_node, goal_node, heuristic_manhattan_adapted)
 
         # Termina contagem de tempo
         end_time = time.time()
@@ -82,7 +82,7 @@ while True:
         start_time = time.time()
 
         ##### Executa A* Euclidean
-        path = a_star_search(G, start_node, goal_node, heuristic_euclidean)
+        path = a_star_search(G, start_node, goal_node, heuristic_euclidean_adapted)
 
         # Termina contagem de tempo
         end_time = time.time()

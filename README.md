@@ -36,10 +36,10 @@ def create_random_graph(num_nodes, prob_edge, min_weight=1, max_weight=10):
 5. Caso as opções de **A-estrela** sejam escolhidas, as heurísticas são definidas com bases nas funções abaixo:
 
 ```python
-def heuristic_manhattan(node, goal):
+def heuristic_manhattan_adapted(node, goal):
         return abs(node - goal)
 
-def heuristic_euclidean(node, goal):
+def heuristic_euclidean_adapted(node, goal):
         return (node - goal) ** 2
 ```
 
