@@ -1,5 +1,4 @@
-def reconstruct_path(came_from, current):
-    # Reconstrói o caminho percorrido
+def reconstruct_path(came_from, current):   
     total_path = [current]
     while current in came_from:
         current = came_from[current]
