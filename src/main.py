@@ -31,8 +31,8 @@ while True:
 
         1. Digite 1 para executar o algoritmo BFS no grafo criado.
         2. Digite 2 para executar o algoritmo DFS no grafo criado.
-        3. Digite 3 para executar o algoritmo A* com eurística Euclidiana no grafo criado.
-        4. Digite 4 para executar o algoritmo A* com eurística Manhattan no grafo criado.
+        3. Digite 3 para executar o algoritmo A* com eurística Manhattan adaptada no grafo criado.
+        4. Digite 4 para executar o algoritmo A* com eurística Euclidiana adaptada no grafo criado.
 
     ''')
 
