@@ -9,8 +9,7 @@ def dfs_search(G, start, goal):
     while stack:
         current = stack.pop()
         if current == goal:
-            print(f"\nDistância percorrida: {distance[goal]}")
-            return reconstruct_path(came_from, current)
+            return reconstruct_path(came_from, current), distance[goal]
         
         if current not in visited:
             visited.add(current)

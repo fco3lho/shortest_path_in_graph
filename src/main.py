@@ -49,7 +49,7 @@ while True:
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print("Tempo de execução em segundos:", elapsed_time)
+        print("\nTempo de execução em segundos:", elapsed_time)
     
     if opt == 2:
         # Inicia contagem de tempo
@@ -62,7 +62,7 @@ while True:
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print("Tempo de execução em segundos:", elapsed_time)
+        print("\nTempo de execução em segundos:", elapsed_time)
 
     if opt == 3:
         # Inicia contagem de tempo
@@ -75,7 +75,7 @@ while True:
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print("Tempo de execução em segundos:", elapsed_time)
+        print("\nTempo de execução em segundos:", elapsed_time)
 
     if opt == 4:
         # Inicia contagem de tempo
@@ -88,12 +88,13 @@ while True:
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print("Tempo de execução em segundos:", elapsed_time)
+        print("\nTempo de execução em segundos:", elapsed_time)
 
     # Visualizando o grafo e o caminho encontrado
     if path:
-        print("Número de nós explorados:", len(path))
-        print("Caminho encontrado:", path)
-        visualize_graph(G, path)
+        print("Número de nós explorados:", len(path[0]))
+        print("Distância percorrida: ", path[1])
+        print("Caminho encontrado:", path[0])
+        visualize_graph(G, path[0])
     else:
         print("Caminho não encontrado.")

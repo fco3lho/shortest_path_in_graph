@@ -19,8 +19,7 @@ def a_star_search(G, start, goal, heuristic):
         _, current = heapq.heappop(open_set)
         
         if current == goal:
-            print(f"\nDistância percorrida: {g_score[current]}")
-            return reconstruct_path(came_from, current)
+            return reconstruct_path(came_from, current), g_score[current]
 
         for neighbor in G.neighbors(current):
             tentative_g_score = g_score[current] + G[current][neighbor]['weight']

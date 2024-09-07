@@ -11,11 +11,10 @@ def bfs_search(G, start, goal):
         
         if current_node == goal:
             path = []
-            print(f"Distância percorrida: {distance[goal]}")
             while current_node is not None:
                 path.append(current_node)
                 current_node = came_from[current_node]
-            return path[::-1]
+            return path[::-1], distance[goal]
         
         for neighbor in G.neighbors(current_node):
             if neighbor not in came_from:
