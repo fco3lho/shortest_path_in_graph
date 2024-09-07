@@ -2,6 +2,7 @@ import os
 
 import time
 
+import networkx as nx
 from create_graph import create_random_graph
 from a_star import a_star_search
 from a_star import heuristic_euclidean
@@ -29,6 +30,7 @@ while (i < 50):
     os.system('clear')
 
     G = create_random_graph(num_nodes, prob_edge)
+    pos = nx.spring_layout(G)
 
     # Definindo os nós de início e fim
     # start_node = int(input(f"Insira o nó de começo (De 0 à {num_nodes - 1}): "))
@@ -84,7 +86,7 @@ while (i < 50):
         start_time = time.time()
 
         ##### Executa A* Manhattan
-        path = a_star_search(G, start_node, goal_node, heuristic_manhattan)
+        path = a_star_search(G, start_node, goal_node, pos, heuristic_manhattan)
 
         # Termina contagem de tempo
         end_time = time.time()
@@ -98,7 +100,7 @@ while (i < 50):
         start_time = time.time()
 
         ##### Executa A* Euclidean
-        path = a_star_search(G, start_node, goal_node, heuristic_euclidean)
+        path = a_star_search(G, start_node, goal_node, pos, heuristic_euclidean)
 
         # Termina contagem de tempo
         end_time = time.time()
