@@ -11,18 +11,30 @@ from dfs_search import dfs_search
 from visualize_graph import visualize_graph
 
 # Configurações do grafo
-num_nodes = int(input("Insira o número de nós do grafo: "))
-prob_edge = float(input("Insira a probabilidade de gerar arestas, sendo medida de 0 a 1: "))
+# num_nodes = int(input("Insira o número de nós do grafo: "))
+# prob_edge = float(input("Insira a probabilidade de gerar arestas, sendo medida de 0 a 1: "))
+num_nodes = 100
+prob_edge = 0.4
 
 # Criação do grafo
-G = create_random_graph(num_nodes, prob_edge)
+# G = create_random_graph(num_nodes, prob_edge)
 
-while True:
+i = 0;
+
+average_time_execution = 0
+average_distance = 0
+average_nodes_exploreds = 0
+
+while (i < 50):
     os.system('clear')
 
+    G = create_random_graph(num_nodes, prob_edge)
+
     # Definindo os nós de início e fim
-    start_node = int(input(f"Insira o nó de começo (De 0 à {num_nodes - 1}): "))
-    goal_node = int(input(f"Insira o nó de chegada (De 0 à {num_nodes - 1}): "))
+    # start_node = int(input(f"Insira o nó de começo (De 0 à {num_nodes - 1}): "))
+    # goal_node = int(input(f"Insira o nó de chegada (De 0 à {num_nodes - 1}): "))
+    start_node = 0
+    goal_node = 99
 
     os.system('clear')
 
@@ -36,9 +48,10 @@ while True:
 
     ''')
 
-    opt = int(input("Digite sua opção: "))
+    # opt = int(input("Digite sua opção: "))
+    opt = 4
 
-    if opt == 1:
+    if opt == 1: # BFS
         # Inicia contagem de tempo
         start_time = time.time()
 
@@ -49,9 +62,10 @@ while True:
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print("\nTempo de execução em segundos:", elapsed_time)
+        # print("\nTempo de execução em segundos:", elapsed_time)
+        average_time_execution += elapsed_time
     
-    if opt == 2:
+    if opt == 2: # DFS
         # Inicia contagem de tempo
         start_time = time.time()
 
@@ -62,9 +76,10 @@ while True:
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print("\nTempo de execução em segundos:", elapsed_time)
+        # print("\nTempo de execução em segundos:", elapsed_time)
+        average_time_execution += elapsed_time
 
-    if opt == 3:
+    if opt == 3: # A* Manhattan
         # Inicia contagem de tempo
         start_time = time.time()
 
@@ -75,9 +90,10 @@ while True:
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print("\nTempo de execução em segundos:", elapsed_time)
+        # print("\nTempo de execução em segundos:", elapsed_time)
+        average_time_execution += elapsed_time
 
-    if opt == 4:
+    if opt == 4: # A* Euclidean
         # Inicia contagem de tempo
         start_time = time.time()
 
@@ -88,13 +104,22 @@ while True:
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print("\nTempo de execução em segundos:", elapsed_time)
+        # print("\nTempo de execução em segundos:", elapsed_time)
+        average_time_execution += elapsed_time
 
     # Visualizando o grafo e o caminho encontrado
     if path:
-        print("Número de nós explorados:", len(path[0]))
-        print("Distância percorrida: ", path[1])
-        print("Caminho encontrado:", path[0])
-        visualize_graph(G, path[0])
+        # print("Número de nós explorados:", len(path[0]))
+        # print("Distância percorrida: ", path[1])
+        # print("Caminho encontrado:", path[0])
+        # visualize_graph(G, path[0])
+        average_nodes_exploreds += len(path[0])
+        average_distance += path[1]
     else:
         print("Caminho não encontrado.")
+
+    i+=1
+
+print(f"Média de nós explorados para 50 execuções: {average_nodes_exploreds/50}")
+print(f"Média de distância percorrida para 50 execuções: {average_distance/50}")
+print(f"Média de tempo de execução 50 execuções: {average_time_execution/50}")
