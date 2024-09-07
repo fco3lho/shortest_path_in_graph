@@ -2,10 +2,11 @@ import os
 
 import time
 
+import networkx as nx
 from create_graph import create_random_graph
 from a_star import a_star_search
-from a_star import heuristic_euclidean_adapted
-from a_star import heuristic_manhattan_adapted
+from a_star import heuristic_euclidean
+from a_star import heuristic_manhattan
 from bfs_search import bfs_search
 from dfs_search import dfs_search
 from visualize_graph import visualize_graph
@@ -16,6 +17,7 @@ prob_edge = float(input("Insira a probabilidade de gerar arestas, sendo medida d
 
 # Criação do grafo
 G = create_random_graph(num_nodes, prob_edge)
+pos = nx.spring_layout(G)
 
 while True:
     os.system('clear')
@@ -69,7 +71,7 @@ while True:
         start_time = time.time()
 
         ##### Executa A* Manhattan
-        path = a_star_search(G, start_node, goal_node, heuristic_manhattan_adapted)
+        path = a_star_search(G, start_node, goal_node, pos, heuristic_manhattan)
 
         # Termina contagem de tempo
         end_time = time.time()
@@ -82,7 +84,7 @@ while True:
         start_time = time.time()
 
         ##### Executa A* Euclidean
-        path = a_star_search(G, start_node, goal_node, heuristic_euclidean_adapted)
+        path = a_star_search(G, start_node, goal_node, pos,heuristic_euclidean)
 
         # Termina contagem de tempo
         end_time = time.time()
